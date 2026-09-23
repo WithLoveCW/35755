@@ -100,7 +100,7 @@ transform: translateX(-50%);
 <body>
   <div class="sc__wrapper">
    <div id="js--sc--container" class="sc__container">
-  <img id="backgroundImage" src="./images/back.png" alt="Background Image" />
+ <img id="backgroundImage" alt="Background Image" />
 
   <div id="personalMessage"></div>
 
@@ -150,6 +150,18 @@ const BG_MUSIC_VOLUME = 0.5;
       const backgroundImage = document.getElementById("backgroundImage");
       const ctx = canvas.getContext("2d");
 
+		// Get card number from URL, e.g. ?card=8
+const params = new URLSearchParams(window.location.search);
+let cardNumber = parseInt(params.get("card"), 10);
+
+// Only allow cards 1–30
+if (!cardNumber || cardNumber < 1 || cardNumber > 30) {
+  cardNumber = 1;
+}
+
+// Load matching background image
+backgroundImage.src = `./images/${cardNumber}.png`;
+		
       const devicePixelRatio = window.devicePixelRatio || 1;
 
       // Fit canvas to container
